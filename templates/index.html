@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            width: 90%;
+            margin-right:20px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 15px 25px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            font-size: 1rem;
+            background-color: #f4f4f4;
+        }
+        select{
+
+            width: 99%;
+            margin-right:20px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 15px 25px;
+            margin-bottom: 10px;
+            border-radius: 25px;
+            font-size: 1rem;
+            background-color: #f4f4f4;
+
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+        display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+button:hover {
+    background-color: #333;
+    transform: translateY(-3px);
+}
+<!--        button {-->
+<!--            padding: 10px 15px;-->
+<!--            background-color: #3498db;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            border-radius: 4px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+<!--        button:hover {-->
+<!--            background-color: #2980b9;-->
+<!--        }-->
+        .result {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+            background-color: #fafafa;
+        }
+        .red {
+            color: red;
+        }
+        .green {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+{% extends 'navbar.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Diet Recommendation System</h1>
+        <form method="post">
+            <label>
+                Age:
+                <input type="number" name="age" required>
+            </label>
+            <label>
+                Gender:
+                <select name="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </label>
+            <label>
+                Weight (kg):
+                <input type="number" name="weight" required>
+            </label>
+            <label>
+                Height (cm):
+                <input type="number" name="height" required>
+            </label>
+            <label>
+                Non-Vegetarian:
+                <input type="checkbox" name="vegetarian">
+            </label>
+            <button type="submit">Get Recommendations</button>
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>

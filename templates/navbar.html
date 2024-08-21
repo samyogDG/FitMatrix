@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}FitMatrix{% endblock %}</title>
+    <style>
+        /* Navbar container styling */
+        .navbar {
+            background-color: #444;  /* Navbar color */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Subtle shadow for depth */
+        }
+
+        /* Styling for the links container */
+        .navbar .nav-left,
+        .navbar .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Center the site name */
+        .navbar .site-name {
+            font-weight: bold;
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 24px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 1.5px;  /* Spacing between letters */
+        }
+
+        /* General link styling */
+        .navbar a {
+            color: #e0e0e0;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;  /* Removed background-color and border-radius transitions */
+        }
+
+        /* Hover effect for all links */
+        .navbar a:hover {
+            color: #f4f4f4;
+<!--               transform: translateY(-3px);-->
+        }
+
+        /* Spacing between the left-aligned links */
+        .navbar .nav-left a {
+            margin-right: 20px;
+        }
+        .navbar .nav-left a:hover {
+            margin-right: 20px;
+             transform: translateY(-3px);
+        }
+        .navbar .nav-right a:hover {
+           
+             transform: translateY(-3px);
+        }
+
+        /* Add a slight padding around the navbar for better spacing */
+        body {
+            margin: 0;
+            padding-top: 10px;
+            font-family: Arial, sans-serif;  /* Use a clean, modern font */
+            background-color: #ecf0f1;  /* Light background color */
+        }
+
+        /* Content area styling */
+        .content {
+            padding: 20px;
+            margin: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('index') }}">Diet</a>
+            <a href="{{ url_for('all_exercises') }}">Workout</a>
+        </div>
+        <a href="{{ url_for('index') }}" class="site-name">FitMatrix</a>
+        <div class="nav-right">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

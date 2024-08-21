@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet Recommendation Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            color: #444;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            background-color: #f4f4f4;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .green {
+            color: green;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .meal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .meal-table th, .meal-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .meal-table th {
+            background-color: #f4f4f4;
+        }
+
+        .meal-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .meal-table tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+       .button-container a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #444;
+            padding: 10px 15px;
+            border: 1px solid #000;
+            border-radius: 15px;
+            display: inline-block;
+            transition: color 0.3s ease; /* Only the text color changes on hover */
+        }
+
+     .button-container   a:hover {
+<!--            color: #454545; /* Darker shade of blue for the hover effect */-->
+<!--            background-color: transparent; -->
+background-color: #333;
+    transform: translateY(-3px)
+        }
+
+        @media (max-width: 600px) {
+            .meal-table th, .meal-table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+           .button-container a {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% extends 'navbar.html' %}
+
+{% block title %}Diet{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Diet Recommendation Results</h1>
+    <div class="result">
+        <h2>BMI CALCULATOR</h2>
+        <p>Body Mass Index (BMI): <strong>{{ bmi|round(1) }} kg/m²</strong></p>
+        <p class="{% if 'Obesity' in bmi_status %}red{% else %}green{% endif %}">{{ bmi_status }}</p>
+        <p>Healthy BMI range: 18.5 kg/m² - 25 kg/m²</p>
+
+        <h2>CALORIES CALCULATOR</h2>
+        <p>The results show a number of daily calorie estimates that can be used as a guideline for how many calories to
+            consume each day to maintain, lose, or gain weight at a chosen rate.</p>
+        <ul>
+            <li>Maintain weight: <strong>{{ maintain_weight|round(0) }} Calories</strong></li>
+            <li>Mild weight loss: <strong>{{ mild_weight_loss|round(0) }} Calories</strong> ↓ -0.25 kg/week</li>
+            <li>Weight loss: <strong>{{ weight_loss|round(0) }} Calories</strong> ↓ -0.5 kg/week</li>
+            <li>Extreme weight loss: <strong>{{ extreme_weight_loss|round(0) }} Calories</strong> ↓ -1 kg/week</li>
+        </ul>
+
+        <h2>PROTEIN INTAKE</h2>
+        <p>Recommended daily protein intake: <strong>{{ protein_intake|round(1) }} g</strong></p>
+
+        <h2>Recommended Meal Plan</h2>
+        <h3>Breakfast:</h3>
+        <div class="table-container">
+            <table class="meal-table">
+                <thead>
+                <tr>
+                    <th>Food Item</th>
+                    <th>Calories</th>
+                    <th>Fats</th>
+                    <th>Proteins</th>
+                    <th>Iron</th>
+                    <th>Calcium</th>
+                    <th>Sodium</th>
+                    <th>Potassium</th>
+                    <th>Carbohydrates</th>
+                    <th>Fibre</th>
+                    <th>Vitamin D</th>
+                    <th>Sugars</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in meal_plan.Breakfast %}
+                <tr>
+                    <td>{{ item.Food_items }}</td>
+                    <td>{{ item.Calories }}</td>
+                    <td>{{ item.Fats }}</td>
+                    <td>{{ item.Proteins }}</td>
+                    <td>{{ item.Iron }}</td>
+                    <td>{{ item.Calcium }}</td>
+                    <td>{{ item.Sodium }}</td>
+                    <td>{{ item.Potassium }}</td>
+                    <td>{{ item.Carbohydrates }}</td>
+                    <td>{{ item.Fibre }}</td>
+                    <td>{{ item.VitaminD }}</td>
+                    <td>{{ item.Sugars }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Lunch:</h3>
+        <div class="table-container">
+            <table class="meal-table">
+                <thead>
+                <tr>
+                    <th>Food Item</th>
+                    <th>Calories</th>
+                    <th>Fats</th>
+                    <th>Proteins</th>
+                    <th>Iron</th>
+                    <th>Calcium</th>
+                    <th>Sodium</th>
+                    <th>Potassium</th>
+                    <th>Carbohydrates</th>
+                    <th>Fibre</th>
+                    <th>Vitamin D</th>
+                    <th>Sugars</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in meal_plan.Lunch %}
+                <tr>
+                    <td>{{ item.Food_items }}</td>
+                    <td>{{ item.Calories }}</td>
+                    <td>{{ item.Fats }}</td>
+                    <td>{{ item.Proteins }}</td>
+                    <td>{{ item.Iron }}</td>
+                    <td>{{ item.Calcium }}</td>
+                    <td>{{ item.Sodium }}</td>
+                    <td>{{ item.Potassium }}</td>
+                    <td>{{ item.Carbohydrates }}</td>
+                    <td>{{ item.Fibre }}</td>
+                    <td>{{ item.VitaminD }}</td>
+                    <td>{{ item.Sugars }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Dinner:</h3>
+        <div class="table-container">
+            <table class="meal-table">
+                <thead>
+                <tr>
+                    <th>Food Item</th>
+                    <th>Calories</th>
+                    <th>Fats</th>
+                    <th>Proteins</th>
+                    <th>Iron</th>
+                    <th>Calcium</th>
+                    <th>Sodium</th>
+                    <th>Potassium</th>
+                    <th>Carbohydrates</th>
+                    <th>Fibre</th>
+                    <th>Vitamin D</th>
+                    <th>Sugars</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in meal_plan.Dinner %}
+                <tr>
+                    <td>{{ item.Food_items }}</td>
+                    <td>{{ item.Calories }}</td>
+                    <td>{{ item.Fats }}</td>
+                    <td>{{ item.Proteins }}</td>
+                    <td>{{ item.Iron }}</td>
+                    <td>{{ item.Calcium }}</td>
+                    <td>{{ item.Sodium }}</td>
+                    <td>{{ item.Potassium }}</td>
+                    <td>{{ item.Carbohydrates }}</td>
+                    <td>{{ item.Fibre }}</td>
+                    <td>{{ item.VitaminD }}</td>
+                    <td>{{ item.Sugars }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <a href="/">Go Back</a>
+            <a href="{{ url_for('all_exercises') }}">View Exercises</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
